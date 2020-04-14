@@ -1,10 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 func main() {
 	fmt.Println("start")
-	defer fmt.Println("this was deferred")
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println("Error: ", err)
+		}
+	}()
 	panic("something went wrong")
 	fmt.Println("end")
 }
